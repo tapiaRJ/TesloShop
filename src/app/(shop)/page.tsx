@@ -1,15 +1,27 @@
-import Image from "next/image";
+import { ProductGrid, Title } from "@/src/components";
 import { titleFont } from "../../config/fonts";
+import { initialData } from "@/src/seed/seed";
+
+
+const products = initialData.products;
+
+
 
 export default function Home() {
   return (
+    <>
+      <Title
+        title="Tienda"
+        subtitle="Todos los Productos"
+        className="mb-2"
+      />
 
-    <div className="">
-      <h1>Hola Mundo Javier</h1>
-      <h1 className={ `${ titleFont.className } font-bold `}>Hola Mundo Javier</h1>
-      <h1 className={ `${ titleFont.className } `}>Hola Javier que hay de nuevo</h1>
-    </div>
+      <ProductGrid
+        products={ products }
+      />
 
+    </>
   );
 }
-     
+
+
