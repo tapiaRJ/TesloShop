@@ -24,7 +24,7 @@ export const Sidebar = () => {
         )
       }
 
-      {/* Blur  */}
+      {/* Blur  */}    
       {
         isSideMenuOpen && (
           <div
