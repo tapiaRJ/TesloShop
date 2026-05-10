@@ -1,5 +1,14 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+
+
+
+
+
+.env
+
+/postgres/
+
 # dependencies
 /node_modules
 /.pnp
@@ -39,3 +48,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+para iniciar un nuevo repositorio de GitHub, puedes seguir estos pasos:
+# 1. Crea un nuevo repositorio en GitHub.
+# 2. Abre tu terminal y navega hasta el directorio de tu proyecto.
+# 3. Inicializa un nuevo repositorio de Git con el comando:
+# git init
+# 4. Agrega tu repositorio remoto de GitHub con el comando:
+# git remote add origin 
+
+
+
+
+################ para subir los cambios a tu repositorio de GitHub, puedes seguir estos pasos:############
+# git add .
+# git commit -m "Tu mensaje de commit aquí"
+# git push origin main
+
+
+/app/generated/prisma
