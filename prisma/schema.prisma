@@ -5,7 +5,7 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  output   = "../src/app/generated/prisma"
 }
 
 datasource db {
@@ -25,6 +25,7 @@ enum Size {
 enum Gender {
   men
   women
+  kid
   unisex
 }
 
@@ -59,6 +60,7 @@ model Product {
 model ProductImage {
   id        Int     @id @default(autoincrement())
   url       String
-  Product   Product @relation(fields: [productId], references: [id])
+
+  product   Product @relation(fields: [productId], references: [id])
   productId String
 }

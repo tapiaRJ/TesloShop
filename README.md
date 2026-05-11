@@ -9,7 +9,7 @@
 3. instalar dependencias ```npm install```
 4. Levanatar la base de datos ```docker-compose up -d```
 5. Correr las migraciones de Prisma ```npx prisma migrate dev "name"```
-6. Generar Cliente ```npx prisma generate```
+<!-- 6. Generar Cliente ```npx prisma generate``` -->
 7. Ejecutar seed ```npm run seed```
 8. Correr el proyecto    ```npm run dev```
 
