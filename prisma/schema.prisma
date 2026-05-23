@@ -52,7 +52,7 @@ model Product {
   category      Category       @relation(fields: [categoryId], references: [id])
   categoryId    String
 
-  productImages ProductImage[]
+  ProductImage ProductImage[]
 
   @@index([gender])
 }

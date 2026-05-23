@@ -1,13 +1,31 @@
-import { ProductGrid, Title } from "@/src/components";
-import { titleFont } from "../../config/fonts";
-import { initialData } from "@/src/seed/seed";
+export const revalidate = 60; // Tiempo en segundos (60 seg)
 
 
-const products = initialData.products;
+import { redirect } from "next/navigation";
+
+import { Pagination, ProductGrid, Title } from "@/src/components";
+import { getPaginatedProductsWithImages } from "@/src/actions";
+import { Gender } from "../generated/prisma/enums";
+
+interface Props {
+  searchParams: Promise<{
+    page?: string;
+  }>;
+}
+
+export default async function Home({ searchParams }: Props) {
+
+  const params = await searchParams;
+
+  const page = params.page ? parseInt(params.page) : 1;
+
+  const { products, currentPage, totalPages } = await getPaginatedProductsWithImages({page});
 
 
+  if (products.length === 0) {
+    redirect('/');
+  }
 
-export default function Home() {
   return (
     <>
       <Title
@@ -15,10 +33,11 @@ export default function Home() {
         subtitle="Todos los Productos"
         className="mb-2"
       />
-
       <ProductGrid
-        products={ products }
+        products={products}
       />
+
+      <Pagination totalPages ={ totalPages } />
 
     </>
   );

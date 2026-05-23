@@ -242,7 +242,7 @@ export type ProductImageScalarWhereWithAggregatesInput = {
 
 export type ProductImageCreateInput = {
   url: string
-  product: Prisma.ProductCreateNestedOneWithoutProductImagesInput
+  product: Prisma.ProductCreateNestedOneWithoutProductImageInput
 }
 
 export type ProductImageUncheckedCreateInput = {
@@ -253,7 +253,7 @@ export type ProductImageUncheckedCreateInput = {
 
 export type ProductImageUpdateInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
-  product?: Prisma.ProductUpdateOneRequiredWithoutProductImagesNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutProductImageNestedInput
 }
 
 export type ProductImageUncheckedUpdateInput = {

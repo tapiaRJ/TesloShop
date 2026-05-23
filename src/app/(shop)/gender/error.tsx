@@ -1,3 +1,5 @@
+'use client';
+
 import { PageNotFaound } from "@/src/components";
 
 
