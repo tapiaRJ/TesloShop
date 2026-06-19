@@ -3,9 +3,12 @@ import "./globals.css";
 //import { geistMono, geistSans } from "../config/fonts";
 import { inter } from "../config/fonts";
 
-
 export const metadata: Metadata = {
-  title: "Teslo | Shop",
+  title: {
+    template: '%s - Teslo | Shop',
+    default: 'Home - Teslo | Shop',
+  },
+
   description: "Una tienda virtual de productos",
 };
 
@@ -16,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-     <body className= {inter.className}>{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

@@ -1,12 +1,19 @@
+export const revalidate = 604800; // 7 dias
+
 import { notFound } from "next/navigation";
-import { initialData } from "../../../../seed/seed";
+import { Metadata, ResolvingMetadata } from "next";
+
 import { titleFont } from "@/src/config/fonts";
 import {
   ProductMobileSlideshow,
   ProductSlideshow,
+  QuantitySelector,
   SizeSelector,
+  StockLabel,
 } from "@/src/components";
-import { QuantitySelector } from "../../../../components/product/quantity-selector/QuantitySelector";
+import { getProductBySlug } from "@/src/actions";
+import { MdDescription } from "react-icons/md";
+import { AddToCart } from "./ui/AddToCart";
 
 interface Props {
   params: {
@@ -14,9 +21,39 @@ interface Props {
   };
 }
 
+
+//meta data es para los bot de google and facebook
+export async function generateMetadata({ params }: Props,parent: ResolvingMetadata,): Promise<Metadata> {
+
+  const { slug } = await params
+  //const slug = (await params).slug
+
+  // fetch post information
+  const product = await getProductBySlug(slug);
+
+  // const previousImages = (await parent ).openGraph?.images || []
+
+  return {
+    title: product?.title ?? "Producto no encontrado",
+    description: product?.description ?? "",
+    openGraph: {
+      title: product?.title ?? "Producto no encontrado",
+      description: product?.description ?? "",
+
+      //image: [], https://mi sitio web.com/product/iamge.png
+      images: [`/products/${ product?.images[1] }`],
+    },
+  };
+}
+
+
+
+
 export default async function ({ params }: Props) {
   const { slug } = await params;
-  const product = initialData.products.find((product) => product.slug === slug);
+  //const product = initialData.products.find((product) => product.slug === slug);
+  const product = await getProductBySlug(slug);
+  //console.log(product);
 
   if (!product) {
     notFound();
@@ -26,6 +63,7 @@ export default async function ({ params }: Props) {
     <div className="mt-5 mb-20 grid grid-cols-1 md:grid-cols-3 gap-3">
       {/* Slideshow */}
       <div className="col-span-1 md-1 md:col-span-2">
+
         {/* Mobile Slideshow */}
         <ProductMobileSlideshow
           title={product.title}
@@ -43,22 +81,15 @@ export default async function ({ params }: Props) {
 
       {/* Detalles */}
       <div className="col-span-1 px-5x">
+        <StockLabel slug={product.slug} />
+
         <h1 className={` ${titleFont.className} antialiased font-bold text-xl`}>
           {product.title}
         </h1>
         <p className="text-lg mb-5">${product.price}</p>
 
-        {/* Selctor de Tallas */}
-        <SizeSelector
-          selectedSize={product.sizes[0]}
-          availableSizes={product.sizes}
-        />
-
-        {/* Selector d Cantidad */}
-        <QuantitySelector quantity={2} />
-
-        {/* button */}
-        <button className="btn-primary my-5">Agregar al carrito</button>
+        <AddToCart  product = { product }/>
+       
 
         {/* Desxriptions */}
         <h3 className="font-bold text-sm">Descripcion</h3>

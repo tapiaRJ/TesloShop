@@ -12,6 +12,8 @@ export * from './product/slideshow/ProductSlideshow';
 export * from './products/product-grid/ProductGrid';
 export * from './products/product-grid/ProductGriditem';
 
+export * from './product/stock-label/StockLabel';
+
 export * from './ui/footer/Footer';
 export * from './ui/not-found/PageNotFaound';
 export * from './ui/pagination/Pagination';
