@@ -6,8 +6,11 @@ import { initialData } from "./seed";
 
 async function main() {
   //Borrar Registros previos
-  console.log("Iniciando Seed....!");
+  //console.log("Iniciando Seed....!");
   // await Promise.all([
+
+  await prisma.user.deleteMany();
+
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
