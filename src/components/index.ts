@@ -8,6 +8,9 @@
 //export * from './ui/header/Header';
 export * from './product/quantity-selector/QuantitySelector';
 export * from './product/slideshow/ProductMobileSlideshow';
+
+export * from './provider/Provider';
+
 export * from './product/slideshow/ProductSlideshow';
 export * from './products/product-grid/ProductGrid';
 export * from './products/product-grid/ProductGriditem';

@@ -30,3 +30,11 @@ export const Gender = {
 } as const
 
 export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const Role = {
+  admin: 'admin',
+  user: 'user'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]
