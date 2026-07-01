@@ -1,5 +1,5 @@
 import { titleFont } from '@/src/config/fonts';
-import { LoginForm } from './LoginForm';
+import { LoginForm } from './ui/LoginForm';
 
 export default function () {
   return (

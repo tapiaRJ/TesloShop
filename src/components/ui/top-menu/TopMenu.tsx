@@ -33,8 +33,7 @@ export const TopMenu = () => {
         </Link>
       </div>
 
-      {/* Center Menu  */}
-
+      {/* Center Menu derecho */}
       <div className="hidden sm:block">
         <Link
           className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
@@ -42,6 +41,8 @@ export const TopMenu = () => {
         >
           Hombres
         </Link>
+
+        {/* categorias */}
         <Link
           className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
           href="/gender/women"
@@ -56,10 +57,10 @@ export const TopMenu = () => {
         </Link>
       </div>
 
-      {/* Search, Cart, Menu */}
+      {/* Search, Busca lupa,  Cart, Menu */}
       <div className="flex items-center">
         <Link href="/search" className="mx-2">
-          <IoSearchOutline className="w-5 h-5" />Inline Suggest
+          <IoSearchOutline className="w-5 h-5" />
         </Link>
 
         <Link href={

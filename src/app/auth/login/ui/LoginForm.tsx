@@ -9,7 +9,7 @@ import { useFormStatus } from "react-dom";
 import { IoAddOutline, IoInformationOutline } from "react-icons/io5";
 
 export const LoginForm = () => {
-  const router = useRouter(); // 👈 Hook para la redirección manual de Fernando
+  //const router = useRouter(); // 👈 Hook para la redirección manual de Fernando
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
 
@@ -25,9 +25,11 @@ export const LoginForm = () => {
   useEffect(() => {
     if (state === "Success") {
       // Redirecciona al callbackUrl inteligente o a la raíz '/'
-      router.replace(callbackUrl);
+      //router.replace(callbackUrl);
+
+      window.location.replace("/");
     }
-  }, [state, callbackUrl, router]);
+  }, [state, callbackUrl]);
 
   return (
     <form action={formAction} className="flex flex-col">

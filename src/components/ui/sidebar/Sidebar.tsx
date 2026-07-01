@@ -1,58 +1,56 @@
-'use client'
-import { useSession } from 'next-auth/react';
-import { useUIStore } from '@/src/store'
-import Link from 'next/link'
-import clsx from 'clsx'
+"use client";
+import Link from "next/link";
+import clsx from "clsx";
 
+import {
+  IoCloseOutline,
+  IoLogInOutline,
+  IoLogOutOutline,
+  IoPeopleOutline,
+  IoPersonOutline,
+  IoSearchOutline,
+  IoShirtOutline,
+  IoTicketOutline,
+} from "react-icons/io5";
 
-import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleOutline, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline } from 'react-icons/io5'
+import { useSession } from "next-auth/react";
+import { useUIStore } from "@/src/store";
 
-import { logout } from '@/src/actions'
-
+import { logout } from "@/src/actions";
 
 export const Sidebar = () => {
-
-  const isSideMenuOpen = useUIStore(state => state.isSideMenuOpen);
-  const closeMenu = useUIStore(state => state.closeSideMenu);
+  const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
+  const closeMenu = useUIStore((state) => state.closeSideMenu);
 
   const { data: session } = useSession();
 
   const isAuthenticated = !!session?.user;
-  const isAdmin = (session?.user.role === 'admin');
-
+  const isAdmin = session?.user.role === "admin";
 
   return (
     <div>
-
       {/* Background black */}
-      {
-        isSideMenuOpen && (
-          <div className="fixed top-0 left-0 w-screen h-screen z-10 bg-black opacity-30 "
-          />
-        )
-      }
+      {isSideMenuOpen && (
+        <div className="fixed top-0 left-0 w-screen h-screen z-10 bg-black opacity-30 " />
+      )}
 
       {/* Blur  */}
-      {
-        isSideMenuOpen && (
-          <div
-            onClick={() => closeMenu()}
-            className="fade-in fixed top-0 left-0 w-screen h-screen z-10 backdrop-filter backdrop-blur-sm"
-          />
-        )
-      }
+      {isSideMenuOpen && (
+        <div
+          onClick={() => closeMenu()}
+          className="fade-in fixed top-0 left-0 w-screen h-screen z-10 backdrop-filter backdrop-blur-sm"
+        />
+      )}
 
       {/*  Sidemenu  */}
       <nav
-        className={
-          clsx(
-            "fixed p-5 right-0 top-0 w-125 h-screen bg-white z-20 shadow-2xl transform transition-all duration-300",
-            {
-              "translate-x-full": !isSideMenuOpen
-            }
-          )
-        }>
-
+        className={clsx(
+          "fixed p-5 right-0 top-0 w-125 h-screen bg-white z-20 shadow-2xl transform transition-all duration-300",
+          {
+            "translate-x-full": !isSideMenuOpen,
+          },
+        )}
+      >
         <IoCloseOutline
           size={50}
           className="absolute top-5 rigth-5 cursor-pointer"
@@ -69,31 +67,26 @@ export const Sidebar = () => {
           />
         </div>
         {/* Menu */}
-        {
-          isAuthenticated && (
-            <>
-              <Link
-                href="/profile"
-                onClick={() => closeMenu()}
+        {isAuthenticated && (
+          <>
+            <Link
+              href="/profile"
+              onClick={() => closeMenu()}
+              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+            >
+              <IoPersonOutline size={30} />
+              <span className="ml-3 text-xl">Perfil</span>
+            </Link>
 
-                className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
-              >
-                <IoPersonOutline size={30} />
-                <span className="ml-3 text-xl">Perfil</span>
-              </Link>
-
-              <Link
-                href="/"
-                className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
-              >
-                <IoTicketOutline size={30} />
-                <span className="ml-3 text-xl">Ordenes</span>
-              </Link>
-
-            </>
-          )
-        }
-
+            <Link
+              href="/"
+              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+            >
+              <IoTicketOutline size={30} />
+              <span className="ml-3 text-xl">Ordenes</span>
+            </Link>
+          </>
+        )}
 
         {/* Ingresar */}
 
@@ -122,47 +115,37 @@ export const Sidebar = () => {
           </Link>
         )}
 
+        {isAdmin && (
+          <>
+            {/* Line Separator */}
+            <div className="w-full h-px bg-gray-200 my-10" />
 
+            <Link
+              href="/"
+              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+            >
+              <IoShirtOutline size={30} />
+              <span className="ml-3 text-xl">Productos</span>
+            </Link>
 
+            <Link
+              href="/"
+              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+            >
+              <IoTicketOutline size={30} />
+              <span className="ml-3 text-xl">Ordenes</span>
+            </Link>
 
-
-        {
-          isAdmin && (
-            <>
-              {/* Line Separator */}
-              <div className="w-full h-px bg-gray-200 my-10" />
-
-              <Link
-                href="/"
-                className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
-              >
-                <IoShirtOutline size={30} />
-                <span className="ml-3 text-xl">Productos</span>
-              </Link>
-
-              <Link
-                href="/"
-                className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
-              >
-                <IoTicketOutline size={30} />
-                <span className="ml-3 text-xl">Ordenes</span>
-              </Link>
-
-              <Link
-                href="/"
-                className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
-              >
-                <IoPeopleOutline size={30} />
-                <span className="ml-3 text-xl">Usuarios</span>
-              </Link>
-            </>
-          )
-        }
-
-
-
+            <Link
+              href="/"
+              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+            >
+              <IoPeopleOutline size={30} />
+              <span className="ml-3 text-xl">Usuarios</span>
+            </Link>
+          </>
+        )}
       </nav>
     </div>
-  )
-}
-
+  );
+};
