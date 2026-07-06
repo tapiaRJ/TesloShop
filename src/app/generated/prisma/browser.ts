@@ -37,3 +37,13 @@ export type ProductImage = Prisma.ProductImageModel
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model Country
+ * 
+ */
+export type Country = Prisma.CountryModel
+/**
+ * Model UserAddress
+ * 
+ */
+export type UserAddress = Prisma.UserAddressModel

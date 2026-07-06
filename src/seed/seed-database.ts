@@ -3,7 +3,8 @@ import "dotenv/config"; // Esto debe ser lo primero
 import prisma from "../lib/prisma";
 import { Gender } from "../app/generated/prisma/client";
 import { initialData } from "./seed";
-import { create } from 'zustand';
+
+import { countries } from './seed-countries';
 
 async function main() {
   //Borrar Registros previos
@@ -11,7 +12,7 @@ async function main() {
   // await Promise.all([
 
   await prisma.user.deleteMany();
-  //await prisma.country.deleteMany();
+  await prisma.country.deleteMany();
 
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
@@ -22,6 +23,10 @@ async function main() {
   await prisma.user.createMany({
     data: users
   });
+
+  await prisma.country.createMany({
+    data: countries
+  })
 
   //Categorias
   // {

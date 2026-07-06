@@ -1,11 +1,16 @@
 "use client";
 
 import clsx from "clsx";
-// import Link from "next/link";
 import { useForm } from "react-hook-form";
 
+import { Address, Country } from "@/src/interfaces";
+import { useAddressStore } from "@/src/store";
+import { useEffect } from "react";
+import { deleteUserAddress, setUserAddress } from "@/src/actions";
+import { useSession } from "next-auth/react";
+
 type FormInputs = {
-  firsName: string;
+  firstName: string;
   lastName: string;
   address: string;
   address2?: string;
@@ -13,22 +18,51 @@ type FormInputs = {
   city: string;
   country: string;
   phone: string;
-  rememberAddress: boolean;
+  rememberAddress: boolean; 
+}
+
+interface Props {
+  countries: Country[];
+  userStoredAddress?: Partial<Address>;
 }
 
 
 
-export const AdressForm = () => {
+export const AdressForm = ( { countries, userStoredAddress = {} }: Props ) => {
 
-  const { handleSubmit, register, formState: { isValid }} = useForm<FormInputs>({
+  const { handleSubmit, register, formState: { isValid }, reset  } = useForm<FormInputs>({
     defaultValues: {
-      //todo: leer de la base de datos.
-
+      ...(userStoredAddress as any ),
+      rememberAddress: false,
     }
   });  
+
+  const { data: session } = useSession({
+    required: true, 
+  })
+
+  const setAddress = useAddressStore( state => state.setAddress );
+  const address = useAddressStore( state => state.address );
+
+
+  useEffect(() => {
+    if ( address.firstName ) {
+      reset(address)
+    }
+  
+  },[address])
+  
   
   const onSubmit = ( data: FormInputs ) => {
-    console.log({data});
+
+    setAddress(data);
+    const { rememberAddress, ...restAddress } = data;
+
+    if ( rememberAddress ) {
+      setUserAddress( restAddress, session!.user.id )
+    } else {
+      deleteUserAddress(session!.user.id);
+    }
   }
 
 
@@ -36,7 +70,7 @@ export const AdressForm = () => {
     <form onSubmit={ handleSubmit( onSubmit )} className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2">
       <div className="flex flex-col mb-2">
         <span>Nombres</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-200" { ...register('firsName', { required: true })} />
+        <input type="text" className="p-2 border rounded-md bg-gray-200" { ...register('firstName', { required: true })} />
       </div>
 
       <div className="flex flex-col mb-2">
@@ -68,7 +102,11 @@ export const AdressForm = () => {
         <span>País</span>
         <select className="p-2 border rounded-md bg-gray-200" { ...register('country', { required: true })} >
           <option value="">[ Seleccione ]</option>
-          <option value="CRI">Costa Rica</option>
+          {
+            countries.map( country => (
+              <option key={ country.id } value={ country.id }>{ country.name }</option>
+            ))
+          }
         </select>
       </div>
 
