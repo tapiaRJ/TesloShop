@@ -136,6 +136,7 @@ export const UserAddressScalarFieldEnum = {
   address: 'address',
   address2: 'address2',
   postalCode: 'postalCode',
+  city: 'city',
   phone: 'phone',
   countryId: 'countryId',
   userId: 'userId'

@@ -10,7 +10,7 @@ async function main() {
   //Borrar Registros previos
   //console.log("Iniciando Seed....!");
   // await Promise.all([
-
+  await prisma.userAddress.deleteMany(); // Aqui
   await prisma.user.deleteMany();
   await prisma.country.deleteMany();
 

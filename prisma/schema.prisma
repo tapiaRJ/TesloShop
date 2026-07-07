@@ -71,15 +71,15 @@ model ProductImage {
 }
 
 model User {
-  id            String    @id @default(uuid())
+  id            String       @id @default(uuid())
   name          String
-  email         String    @unique
+  email         String       @unique
   emailVerified DateTime?
   password      String
-  role          Role      @default(user)
+  role          Role         @default(user)
   image         String?
- //Realciones uno a uno
-  address UserAddress? 
+  //Realciones uno a uno
+  address       UserAddress?
 }
 
 model Country {
@@ -95,6 +95,7 @@ model UserAddress {
   address    String
   address2   String?
   postalCode String
+  city       String
   phone      String
 
   // Relaciones
@@ -102,6 +103,6 @@ model UserAddress {
   countryId String
 
   //Relaciones de uno a uno
-  user User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
   userId String @unique
 }

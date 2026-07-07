@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 
@@ -30,6 +31,8 @@ interface Props {
 
 export const AdressForm = ( { countries, userStoredAddress = {} }: Props ) => {
 
+  const router = useRouter();
+
   const { handleSubmit, register, formState: { isValid }, reset  } = useForm<FormInputs>({
     defaultValues: {
       ...(userStoredAddress as any ),
@@ -53,16 +56,18 @@ export const AdressForm = ( { countries, userStoredAddress = {} }: Props ) => {
   },[address])
   
   
-  const onSubmit = ( data: FormInputs ) => {
+  const onSubmit = async( data: FormInputs ) => {
 
     setAddress(data);
     const { rememberAddress, ...restAddress } = data;
 
     if ( rememberAddress ) {
-      setUserAddress( restAddress, session!.user.id )
+      await setUserAddress( restAddress, session!.user.id )
     } else {
-      deleteUserAddress(session!.user.id);
+      await deleteUserAddress(session!.user.id);
     }
+
+    router.push('/checkout');
   }
 
 
